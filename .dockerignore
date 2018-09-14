@@ -1,0 +1,6 @@
+.git/
+assets/lstm_weather_test_data*
+.DS_Store
+core/__pycache__/
+demo/.DS_Store
+assets/.DS_Store

@@ -1,0 +1,4 @@
+numpy
+tensorflow==1.5.0
+keras
+sklearn

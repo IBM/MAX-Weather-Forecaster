@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: max-weather-forecaster
+spec:
+  selector:
+    app: max-weather-forecaster
+  ports:
+  - port: 5000
+  type: NodePort
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: max-weather-forecaster
+  labels:
+    app: max-weather-forecaster
+spec:
+  selector:
+    matchLabels:
+      app: max-weather-forecaster
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: max-weather-forecaster
+    spec:
+      containers:
+      - name: max-weather-forecaster
+        image: codait/max-weather-forecaster:latest
+        ports:
+        - containerPort: 5000
