@@ -55,6 +55,7 @@ Related Repositories
 | ------------- | --------  | -------- |
 | This repository | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](LICENSE) |
 | Model Weights | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](LICENSE) |
+| Test Assets | No restriction | [Asset README](assets/README.md) |
 
 ## Prerequisites
 
