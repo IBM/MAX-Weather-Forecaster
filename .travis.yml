@@ -6,6 +6,7 @@ services:
 install:
 - docker build -t max-weather-forecaster .
 - docker run -it -d -p 5000:5000 max-weather-forecaster
+- sleep 20
 before_script:
 - pip install pytest requests
 - tar -zxvf assets/lstm_weather_test_data.tar.gz -C assets
