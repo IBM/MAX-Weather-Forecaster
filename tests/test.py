@@ -2,6 +2,34 @@ import pytest
 import requests
 
 
+def test_swagger():
+
+    model_endpoint = 'http://localhost:5000/swagger.json'
+
+    r = requests.get(url=model_endpoint)
+    assert r.status_code == 200
+    assert r.headers['Content-Type'] == 'application/json'
+
+    json = r.json()
+    assert 'swagger' in json
+    assert json.get('info') and json.get('info').get('title') == 'Model Asset Exchange Server'
+
+
+def test_metadata():
+
+    model_endpoint = 'http://localhost:5000/model/metadata'
+
+    r = requests.get(url=model_endpoint)
+    assert r.status_code == 200
+
+    metadata = r.json()
+    assert metadata['id'] == 'lstm_weather_forecaster'
+    assert metadata['name'] == 'LSTM Weather Forecaster'
+    assert metadata['description'] == 'LSTM Weather Forecaster Model trained using TensorFlow and Keras on JFK ' \
+                                      'weather time-series data'
+    assert metadata['license'] == 'Apache 2'
+
+
 def run_model(file_path, url):
     with open(file_path, 'rb') as file:
         file_form = {'file': (file_path, file, 'text/plain')}
@@ -9,7 +37,7 @@ def run_model(file_path, url):
         return r
 
 
-def test_response():
+def test_predict():
     model_endpoint = 'http://localhost:5000/model/predict'
 
     mv_model = 'assets/lstm_weather_test_data/multivariate_model_test_data.txt'
