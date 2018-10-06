@@ -133,7 +133,7 @@ $ docker run -it -p 5000:5000 max-weather-forecaster
 
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load it. From there you can explore the API and also create test requests.
 
-Use the `model/predict` endpoint to load a test data file and get predictions for the relevent weather target variable (or variables) from the API. You can use one of the test files from the `assets/lstm_weather_test_data` folder, after unzipping the test data archive by running the following command:
+Use the `model/predict` endpoint to load a test data file and get predictions for the relevant weather target variable (or variables) from the API. You can use one of the test files from the `assets/lstm_weather_test_data` folder, after unzipping the test data archive by running the following command:
 
 ```
 $ tar -zxvf assets/lstm_weather_test_data.tar.gz -C assets
