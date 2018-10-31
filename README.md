@@ -1,4 +1,6 @@
-# IBM Code Model Asset Exchange: Weather Forecaster
+[![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster)
+
+# IBM Developer Model Asset Exchange: Weather Forecaster
 
 This repository contains code to instantiate and deploy a weather forecasting model. The model takes hourly weather data (as a Numpy array of various weather features, in text file format) as input and returns hourly weather predictions for a specific target variable or variables (such as temperature or windspeed).
 
