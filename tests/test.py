@@ -12,7 +12,7 @@ def test_swagger():
 
     json = r.json()
     assert 'swagger' in json
-    assert json.get('info') and json.get('info').get('title') == 'Model Asset Exchange Server'
+    assert json.get('info') and json.get('info').get('title') == 'MAX Weather Forecaster'
 
 
 def test_metadata():
@@ -28,6 +28,8 @@ def test_metadata():
     assert metadata['description'] == 'LSTM Weather Forecaster Model trained using TensorFlow and Keras on JFK ' \
                                       'weather time-series data'
     assert metadata['license'] == 'Apache 2'
+    assert metadata['type'] == 'Time Series Prediction'
+    assert 'max-weather-forecaster' in metadata['source']
 
 
 def run_model(file_path, url):
