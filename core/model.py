@@ -1,6 +1,8 @@
+from maxfw.model import MAXModelWrapper
+
 import tensorflow as tf
 import logging
-from config import DEFAULT_MODEL_PATH, MODELS
+from config import DEFAULT_MODEL_PATH, MODELS, MODEL_META_DATA as model_meta
 import os
 from keras.models import load_model
 import numpy as np
@@ -79,7 +81,10 @@ class SingleModelWrapper(object):
         return rescaled_preds
 
 
-class ModelWrapper(object):
+class ModelWrapper(MAXModelWrapper):
+
+    MODEL_META_DATA = model_meta
+    
     """Model wrapper for Keras models in SavedModel format"""
     def __init__(self, path=DEFAULT_MODEL_PATH):
         
