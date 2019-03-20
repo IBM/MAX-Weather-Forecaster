@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster)
+[![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster) [![Website Status](https://img.shields.io/website/http/max-weather-forecaster.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-weather-forecaster.max.us-south.containers.appdomain.cloud/)
 
 # IBM Developer Model Asset Exchange: Weather Forecaster
 
