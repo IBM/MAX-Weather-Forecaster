@@ -1,10 +1,8 @@
 from core.model import ModelWrapper, load_array
-
 from maxfw.core import MAX_API, PredictAPI
-
-from flask_restplus import Namespace, Resource, fields
+from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
-from config import MODEL_META_DATA, DEFAULT_MODEL, MODELS
+from config import DEFAULT_MODEL, MODELS
 
 
 predict_response = MAX_API.model('ModelPredictResponse', {
@@ -15,9 +13,9 @@ predict_response = MAX_API.model('ModelPredictResponse', {
 # Set up parser for input data (http://flask-restplus.readthedocs.io/en/stable/parsing.html)
 input_parser = MAX_API.parser()
 input_parser.add_argument('file', type=FileStorage, location='files', required=True,
-    help='Input data to use for prediction, in the form of a numpy array txt file')
-input_parser.add_argument('model',type=str, default=DEFAULT_MODEL, choices=MODELS,
-    help='Underlying model to use for prediction')
+                          help='Input data to use for prediction, in the form of a numpy array txt file')
+input_parser.add_argument('model', type=str, default=DEFAULT_MODEL, choices=MODELS,
+                          help='Underlying model to use for prediction')
 
 
 class ModelPredictAPI(PredictAPI):

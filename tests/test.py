@@ -89,5 +89,6 @@ def test_predict():
         assert 100 > max(prediction)
         assert 0 < min(prediction)
 
+
 if __name__ == '__main__':
     pytest.main([__file__])
