@@ -1,6 +1,6 @@
 from core.model import ModelWrapper
-
 from maxfw.core import MAX_API, MetadataAPI, METADATA_SCHEMA
+
 
 class ModelMetadataAPI(MetadataAPI):
 

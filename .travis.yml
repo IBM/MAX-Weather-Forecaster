@@ -1,14 +1,15 @@
 language: python
 python:
-- 3.6
+  - 3.6
 services:
-- docker
+  - docker
 install:
-- docker build -t max-weather-forecaster .
-- docker run -it -d -p 5000:5000 max-weather-forecaster
-- sleep 20
+  - docker build -t max-weather-forecaster .
+  - docker run -it -d -p 5000:5000 max-weather-forecaster
+  - pip install pytest requests flake8
 before_script:
-- pip install pytest requests
-- tar -zxvf assets/lstm_weather_test_data.tar.gz -C assets
+  - flake8 . --max-line-length=127
+  - tar -zxvf assets/lstm_weather_test_data.tar.gz -C assets # extract test assets
+  - sleep 30
 script:
-- pytest tests/test.py
+  - pytest tests/test.py
