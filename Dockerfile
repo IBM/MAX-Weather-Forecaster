@@ -1,4 +1,4 @@
-FROM codait/max-base:v1.1.1
+FROM codait/max-base:v1.1.3
 	
 COPY requirements.txt /workspace
 
