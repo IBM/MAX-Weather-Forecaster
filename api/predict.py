@@ -46,11 +46,8 @@ class ModelPredictAPI(PredictAPI):
         result = {'status': 'error'}
 
         args = input_parser.parse_args()
-        input_data = args['file']
-        model = args['model']
 
-        input_array = load_array(input_data)
-        preds = self.model_wrapper.predict(input_array, model)
+        preds = self.model_wrapper.predict(args)
 
         result['predictions'] = preds
         result['status'] = 'ok'

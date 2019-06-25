@@ -93,7 +93,7 @@ class SingleModelWrapper(object):
 
         return rescaled_preds
 
-    def predict(self, x):
+    def _predict(self, x):
         reshaped_x = self._reshape_data(x)
         with self.graph.as_default():
             preds = self.model.predict(reshaped_x)
@@ -116,6 +116,9 @@ class ModelWrapper(MAXModelWrapper):
 
         logger.info('Loaded all models')
 
-    def predict(self, x, model):
+    def _predict(self, args):
+        model = args['model']
+        input_data = args['file']
+        x = load_array(input_data)
         logger.info('Predicting from model: {}'.format(model))
-        return self.models[model].predict(x)
+        return self.models[model]._predict(x)
