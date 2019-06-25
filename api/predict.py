@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-from core.model import ModelWrapper, load_array
+from core.model import ModelWrapper
 from maxfw.core import MAX_API, PredictAPI
 from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
