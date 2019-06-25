@@ -1,10 +1,17 @@
 [![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster) [![Website Status](https://img.shields.io/website/http/max-weather-forecaster.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-weather-forecaster.max.us-south.containers.appdomain.cloud/)
 
+[<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
+
 # IBM Developer Model Asset Exchange: Weather Forecaster
 
-This repository contains code to instantiate and deploy a weather forecasting model. The model takes hourly weather data (as a Numpy array of various weather features, in text file format) as input and returns hourly weather predictions for a specific target variable or variables (such as temperature or windspeed).
+This repository contains code to instantiate and deploy a weather forecasting model. The model takes hourly weather data
+(as a Numpy array of various weather features, in text file format) as input and returns hourly weather predictions for
+a specific target variable or variables (such as temperature or windspeed).
 
-Three models have been included with this repository, all trained by the [CODAIT team](codait.org) on [National Oceanic and Atmospheric Administration](https://www.ncdc.noaa.gov) local climatological data originally collected by JFK airport. All three models use an LSTM recurrent neural network architecture. You can specify which model you wish to use when making requests to the API (see [Use the Model](#3-use-the-model) below for more details).
+Three models have been included with this repository, all trained by the [CODAIT team](codait.org) on
+[National Oceanic and Atmospheric Administration](https://www.ncdc.noaa.gov) local climatological data originally
+collected by JFK airport. All three models use an LSTM recurrent neural network architecture. You can specify which
+model you wish to use when making requests to the API (see [Use the Model](#3-use-the-model) below for more details).
 
 A description of the weather variables used to train the models is set out below.
 
@@ -30,8 +37,10 @@ Each model returns a different format for its predictions:
 * *Multivariate Model*: returns predictions for all 12 weather variables, for the next hourly time step, for each input data point
 * *Multistep Model*: returns predictions of dry bulb temperature (`HOURLYDRYBULBTEMPF`), for the next 48 hourly time steps, for each input data point
 
-The model files are provided as part of this repository in the [`assets/models`](assets/models) folder. The code in this repository deploys the model as a web service in a Docker container. This repository was developed as part of the [IBM Code Model Asset Exchange](https://developer.ibm.com/code/exchanges/models/).
-
+The model files are provided as part of this repository in the [`assets/models`](assets/models) folder. The code in this
+repository deploys the model as a web service in a Docker container. This repository was developed as part of the
+[IBM Code Model Asset Exchange](https://developer.ibm.com/code/exchanges/models/) and the public API is powered by
+[IBM Cloud](https://ibm.biz/Bdz2XM).
 ## Model Metadata
 
 | Domain        | Application           | Industry       | Framework  | Training Data           | Input Data Format |
