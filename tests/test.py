@@ -93,7 +93,7 @@ def test_predict():
         assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be non-negative
         assert 360 > prediction[6] >= 0  # HOURLYWindDirection - should be 0-360
         assert 31 > prediction[7] > 28  # HOURLYStationPressure
-        assert 9 > prediction[8] > -1  # HOURLYPressureTendency TODO - this is categorical: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        assert 8 >= prediction[8] >= 0  # HOURLYPressureTendency TODO - this is categorical: 0, 1, 2, 3, 4, 5, 6, 7, 8
         assert 31 > prediction[9] > 28  # HOURLYSeaLevelPressure
         assert 2 > prediction[10] >= 0  # HOURLYPrecip
         assert 31 > prediction[11] > 28  # HOURLYAltimeterSetting
