@@ -127,8 +127,8 @@ class ModelWrapper(MAXModelWrapper):
         if predictions.shape[1] == 12:  # multivariate model
             predictions = np.array(predictions)
             predictions[:, 0] = np.clip(predictions[:, 0], 0, 10)  # HOURLYVISIBILITY - should be 0-10
-            predictions[:, 5] = np.maximum(predictions[:, 5], 0)  # HOURLYWindSpeed - should be positive
+            predictions[:, 5] = np.maximum(predictions[:, 5], 0)  # HOURLYWindSpeed - should be non-negative
             predictions[:, 6] = np.remainder(predictions[:, 6], 360)  # HOURLYWindDirection - should be 0-360
-            predictions[:, 10] = np.maximum(predictions[:, 10], 0)  # HOURLYPrecip - should be positive
+            predictions[:, 10] = np.maximum(predictions[:, 10], 0)  # HOURLYPrecip - should be non-negative
 
         return predictions

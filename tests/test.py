@@ -90,8 +90,8 @@ def test_predict():
             assert round(prediction[1]) >= round(prediction[2])  # ... then HOURLYDRYBULBTEMPF > HOURLYWETBULBTEMPF
 
         assert 101 > prediction[4] >= 0  # HOURLYRelativeHumidity - apparently this CAN be > 100%
-        assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be positive
-        assert 360 >= prediction[6] >= 0  # HOURLYWindDirection - should be 0-360
+        assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be non-negative
+        assert 360 > prediction[6] >= 0  # HOURLYWindDirection - should be 0-360
         assert 31 > prediction[7] > 28  # HOURLYStationPressure
         assert 9 > prediction[8] > -1  # HOURLYPressureTendency TODO - this is categorical: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         assert 31 > prediction[9] > 28  # HOURLYSeaLevelPressure
