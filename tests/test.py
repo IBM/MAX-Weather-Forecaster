@@ -65,10 +65,12 @@ def test_predict():
     mv_r = run_model(mv_model, model_endpoint + "?model=multivariate")
     ms_r = run_model(ms_model, model_endpoint + "?model=multistep")
     uv_r = run_model(uv_model, model_endpoint + "?model=univariate")
+    invalid_r = run_model(uv_model, model_endpoint + "?model=invalid")
 
     assert mv_r.status_code == 200
     assert ms_r.status_code == 200
     assert uv_r.status_code == 200
+    assert invalid_r.status_code == 400
 
     mv_json = mv_r.json()
     ms_json = ms_r.json()
@@ -80,17 +82,20 @@ def test_predict():
 
     for prediction in mv_json['predictions']:
         # some of the results are crazy. They should be updated in the model
-        assert 11 > prediction[0] > -1  # HOURLYVISIBILITY TODO - should be 0-10
+        assert 10 >= prediction[0] >= 0  # HOURLYVISIBILITY - should be 0-10
         assert 100 > prediction[1] > 0  # HOURLYDRYBULBTEMPF
         assert 100 > prediction[2] > 0  # HOURLYWETBULBTEMPF
-        assert (prediction[1] + 0.7) > prediction[2]  # HOURLYDRYBULBTEMPF > HOURLYWETBULBTEMPF TODO
-        assert 101 > prediction[4] > 0  # HOURLYRelativeHumidity, apparently this CAN be > 100%
-        assert 80 > prediction[5] > -3  # HOURLYWindSpeed
-        assert 370 > prediction[6] > -6  # HOURLYWindDirection TODO - should be 0-360
+
+        if prediction[4] < 100:  # when HOURLYRelativeHumidity is less than 100% (virtually always in real life)...
+            assert round(prediction[1]) >= round(prediction[2])  # ... then HOURLYDRYBULBTEMPF > HOURLYWETBULBTEMPF
+
+        assert 101 > prediction[4] >= 0  # HOURLYRelativeHumidity - apparently this CAN be > 100%
+        assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be non-negative
+        assert 360 > prediction[6] >= 0  # HOURLYWindDirection - should be 0-360
         assert 31 > prediction[7] > 28  # HOURLYStationPressure
-        assert 9 > prediction[8] > -1  # HOURLYPressureTendency TODO
+        assert 8 >= prediction[8] >= 0  # HOURLYPressureTendency TODO - this is categorical: 0, 1, 2, 3, 4, 5, 6, 7, 8
         assert 31 > prediction[9] > 28  # HOURLYSeaLevelPressure
-        assert 2 > prediction[10] > -0.5  # HOURLYPrecip TODO
+        assert 2 > prediction[10] >= 0  # HOURLYPrecip
         assert 31 > prediction[11] > 28  # HOURLYAltimeterSetting
         assert abs(prediction[11] - prediction[9]) < 0.1  # HOURLYAltimeterSetting ~= HOURLYSeaLevelPressure
 

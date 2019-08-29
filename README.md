@@ -6,9 +6,9 @@
 
 This repository contains code to instantiate and deploy a weather forecasting model. The model takes hourly weather data
 (as a Numpy array of various weather features, in text file format) as input and returns hourly weather predictions for
-a specific target variable or variables (such as temperature or windspeed).
+a specific target variable or variables (such as temperature or wind speed).
 
-Three models have been included with this repository, all trained by the [CODAIT team](codait.org) on
+Three models have been included with this repository, all trained by the [CODAIT team](http://codait.org) on
 [National Oceanic and Atmospheric Administration](https://www.ncdc.noaa.gov) local climatological data originally
 collected by JFK airport. All three models use an LSTM recurrent neural network architecture. You can specify which
 model you wish to use when making requests to the API (see [Use the Model](#3-use-the-model) below for more details).

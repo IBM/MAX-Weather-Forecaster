@@ -29,7 +29,7 @@ predict_response = MAX_API.model('ModelPredictResponse', {
 # Set up parser for input data (http://flask-restplus.readthedocs.io/en/stable/parsing.html)
 input_parser = MAX_API.parser()
 input_parser.add_argument('file', type=FileStorage, location='files', required=True,
-                          help='Input data to use for prediction, in the form of a numpy array txt file')
+                          help='Input data to use for prediction, in the form of a numpy array text file')
 input_parser.add_argument('model', type=str, default=DEFAULT_MODEL, choices=MODELS,
                           help='Underlying model to use for prediction')
 
