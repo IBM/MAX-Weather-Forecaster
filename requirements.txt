@@ -1,4 +1,4 @@
 numpy==1.16.2
-tensorflow==1.12.2
+tensorflow==1.15.2
 keras==2.2.4
 sklearn==0.0
