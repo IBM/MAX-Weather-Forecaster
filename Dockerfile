@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM codait/max-base:v1.1.3
+FROM codait/max-base:v1.3.2
 	
 COPY requirements.txt /workspace
 
