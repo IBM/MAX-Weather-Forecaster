@@ -23,18 +23,21 @@ A description of the weather variables used to train the models is set out below
 | HOURLYDewPointTempF     | Dew point temperature (degrees Fahrenheit). |
 | HOURLYRelativeHumidity  | Relative humidity (percent). |
 | HOURLYWindSpeed         | Wind speed (miles per hour). |
-| HOURLYWindDirection     | Wind direction from true north using compass directions. |
 | HOURLYStationPressure   | Atmospheric pressure (inches of Mercury; or 'in Hg'). |
-| HOURLYPressureTendency  | Pressure tendency, indicating pressure change over most recent 3 hour period. |
 | HOURLYSeaLevelPressure  | Sea level pressure (in Hg). |
 | HOURLYPrecip            | Total precipitation in the past hour (in inches). |
 | HOURLYAltimeterSetting  | Atmospheric pressure reduced to sea level using temperature profile of the “standard” atmosphere (in Hg). |
+| HOURLYWindDirectionSin     | Sine component of wind direction transformation (since wind direction is cyclical). |
+| HOURLYWindDirectionCos     | Cosine component of wind direction transformation (since wind direction is cyclical). |
+| HOURLYPressureTendencyIncr  | Dummy variable indicating if pressure was increasing in the past hour. |
+| HOURLYPressureTendencyDecr  | Dummy variable indicating if pressure was decreasing in the past hour. |
+| HOURLYPressureTendencyCons  | Dummy variable indicating if pressure is has stayed relatively constant in the past hour. | 
 
 For further details on the weather variables see the [US Local Climatological Data Documentation](https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/LCD_documentation.pdf)
 
 Each model returns a different format for its predictions:
 * *Univariate Model*: returns a prediction of dry bulb temperature (`HOURLYDRYBULBTEMPF`), for the next hourly time step, for each input data point
-* *Multivariate Model*: returns predictions for all 12 weather variables, for the next hourly time step, for each input data point
+* *Multivariate Model*: returns predictions for all 15 weather variables, for the next hourly time step, for each input data point
 * *Multistep Model*: returns predictions of dry bulb temperature (`HOURLYDRYBULBTEMPF`), for the next 48 hourly time steps, for each input data point
 
 The model files are provided as part of this repository in the [`assets/models`](assets/models) folder. The code in this

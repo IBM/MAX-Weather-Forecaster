@@ -83,32 +83,36 @@ def test_predict():
     for prediction in mv_json['predictions']:
         # some of the results are crazy. They should be updated in the model
         assert 10 >= prediction[0] >= 0  # HOURLYVISIBILITY - should be 0-10
-        assert 100 > prediction[1] > 0  # HOURLYDRYBULBTEMPF
-        assert 100 > prediction[2] > 0  # HOURLYWETBULBTEMPF
+        assert 106 > prediction[1] > -15  # HOURLYDRYBULBTEMPF - should be between extremes recorded in nyc
+        assert 104 > prediction[2] > -13  # HOURLYWETBULBTEMPF - should be between extremes recorded in nyc
+        assert 95 > prediction[3] > -30  # HOURLYDewPointTempF - should be between extremes recorded in nyc
 
         if prediction[4] < 100:  # when HOURLYRelativeHumidity is less than 100% (virtually always in real life)...
             assert round(prediction[1]) >= round(prediction[2])  # ... then HOURLYDRYBULBTEMPF > HOURLYWETBULBTEMPF
 
         assert 101 > prediction[4] >= 0  # HOURLYRelativeHumidity - apparently this CAN be > 100%
         assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be non-negative
-        assert 360 > prediction[6] >= 0  # HOURLYWindDirection - should be 0-360
-        assert 31 > prediction[7] > 28  # HOURLYStationPressure
-        assert 8 >= prediction[8] >= 0  # HOURLYPressureTendency TODO - this is categorical: 0, 1, 2, 3, 4, 5, 6, 7, 8
-        assert 31 > prediction[9] > 28  # HOURLYSeaLevelPressure
-        assert 2 > prediction[10] >= 0  # HOURLYPrecip
-        assert 31 > prediction[11] > 28  # HOURLYAltimeterSetting
-        assert abs(prediction[11] - prediction[9]) < 0.1  # HOURLYAltimeterSetting ~= HOURLYSeaLevelPressure
+        assert 31 > prediction[6] > 28  # HOURLYStationPressure
+        assert 31 > prediction[7] > 28  # HOURLYSeaLevelPressure
+        assert 3 > prediction[8] >= 0  # HOURLYPrecip
+        assert 31 > prediction[9] > 28  # HOURLYAltimeterSetting
+        assert abs(prediction[9] - prediction[7]) < 0.1  # HOURLYAltimeterSetting ~= HOURLYSeaLevelPressure
+        assert 1 > prediction[10] > -1 # HOURLYWindDirectionSin - should be -1 to 1
+        assert 1 > prediction[11] > -1 # HOURLYWindDirectionCos - should be -1 to 1
+        assert prediction[12] in [0,1] # HOURLYPressureTendencyIncr - should be 0 or 1
+        assert prediction[13] in [0,1] # HOURLYPressureTendencyDecr - should be 0 or 1
+        assert prediction[14] in [0,1] # HOURLYPressureTendencyCons - should be 0 or 1
 
     for prediction in ms_json['predictions']:
         # predicted HOURLYDRYBULBTEMPF for the next 48 hours
-        assert 100 > max(prediction)
-        assert 0 < min(prediction)
+        assert 106 > max(prediction) # hottest recorded in nyc
+        assert -15 < min(prediction) # coldest recorded in nyc
         assert len(prediction) == 48
 
     for prediction in uv_json['predictions']:
         # predicted HOURLYDRYBULBTEMPF for the next hour
-        assert 100 > max(prediction)
-        assert 0 < min(prediction)
+        assert 106 > max(prediction) # hottest recorded in nyc
+        assert -15 < min(prediction) # coldest recorded in nyc
 
 
 if __name__ == '__main__':
