@@ -31,7 +31,7 @@ A description of the weather variables used to train the models is set out below
 | HOURLYWindDirectionCos     | Cosine component of wind direction transformation (since wind direction is cyclical). |
 | HOURLYPressureTendencyIncr  | Dummy variable indicating if pressure was increasing in the past hour. |
 | HOURLYPressureTendencyDecr  | Dummy variable indicating if pressure was decreasing in the past hour. |
-| HOURLYPressureTendencyCons  | Dummy variable indicating if pressure is has stayed relatively constant in the past hour. | 
+| HOURLYPressureTendencyCons  | Dummy variable indicating if pressure has stayed relatively constant in the past hour. | 
 
 For further details on the weather variables see the [US Local Climatological Data Documentation](https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/LCD_documentation.pdf)
 
