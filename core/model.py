@@ -127,19 +127,19 @@ class ModelWrapper(MAXModelWrapper):
         if predictions.shape[1] == 15:  # multivariate model
             predictions = np.array(predictions)
             predictions[:, 0] = np.clip(np.rint(predictions[:, 0]), 0, 10)  # HOURLYVISIBILITY - should be int 0-10
-            predictions[:, 1] = np.clip(predictions[:, 1], -15, 106) # HOURLYDRYBULBTEMPF - should be between extremes recorded in nyc
-            predictions[:, 2] = np.clip(predictions[:, 2], -13, 104) # HOURLYWETBULBTEMPF - should be between extremes recorded in nyc
-            predictions[:, 3] = np.clip(predictions[:, 3], -30, 95) # HOURLYDewPointTempF - should be between extremes recorded in nyc
-            predictions[:, 4] = np.clip(predictions[:, 4], 0, 101) # HOURLYRelativeHumidity - should be between extremes recorded in nyc
+            predictions[:, 1] = np.clip(predictions[:, 1], -15, 106)  # HOURLYDRYBULBTEMPF - between extremes recorded in nyc
+            predictions[:, 2] = np.clip(predictions[:, 2], -13, 104)  # HOURLYWETBULBTEMPF - between extremes recorded in nyc
+            predictions[:, 3] = np.clip(predictions[:, 3], -30, 95)  # HOURLYDewPointTempF - between extremes recorded in nyc
+            predictions[:, 4] = np.clip(predictions[:, 4], 0, 101)  # HOURLYRelativeHumidity - between extremes recorded in nyc
             predictions[:, 5] = np.maximum(predictions[:, 5], 0)  # HOURLYWindSpeed - should be non-negative
-            predictions[:, 6] = np.clip(predictions[:, 6], 28, 31) # HOURLYStationPressure
-            predictions[:, 7] = np.clip(predictions[:, 7], 28, 31) # HOURLYSeaLevelPressure
+            predictions[:, 6] = np.clip(predictions[:, 6], 28, 31)  # HOURLYStationPressure
+            predictions[:, 7] = np.clip(predictions[:, 7], 28, 31)  # HOURLYSeaLevelPressure
             predictions[:, 8] = np.maximum(predictions[:, 8], 0)  # HOURLYPrecip - should be non-negative
-            predictions[:, 9] = np.clip(predictions[:, 9], 28, 31) # HOURLYAltimeterSetting
-            predictions[:, 10] = np.clip(predictions[:, 10], -1, 1) # HOURLYWindDirectionSin - should be -1 to 1
-            predictions[:, 11] = np.clip(predictions[:, 11], -1, 1) # HOURLYWindDirectionCos - should be -1 to 1
-            predictions[:, 12] = np.clip(np.rint(predictions[:, 12]), 0, 1) # HOURLYPressureTendencyIncr - should be 0 or 1
-            predictions[:, 13] = np.clip(np.rint(predictions[:, 13]), 0, 1) # HOURLYPressureTendencyDecr - should be 0 or 1
-            predictions[:, 14] = np.clip(np.rint(predictions[:, 14]), 0, 1) # HOURLYPressureTendencyCons - should be 0 or 1
+            predictions[:, 9] = np.clip(predictions[:, 9], 28, 31)  # HOURLYAltimeterSetting
+            predictions[:, 10] = np.clip(predictions[:, 10], -1, 1)  # HOURLYWindDirectionSin - should be -1 to 1
+            predictions[:, 11] = np.clip(predictions[:, 11], -1, 1)  # HOURLYWindDirectionCos - should be -1 to 1
+            predictions[:, 12] = np.clip(np.rint(predictions[:, 12]), 0, 1)  # HOURLYPressureTendencyIncr - should be 0 or 1
+            predictions[:, 13] = np.clip(np.rint(predictions[:, 13]), 0, 1)  # HOURLYPressureTendencyDecr - should be 0 or 1
+            predictions[:, 14] = np.clip(np.rint(predictions[:, 14]), 0, 1)  # HOURLYPressureTendencyCons - should be 0 or 1
 
         return predictions
