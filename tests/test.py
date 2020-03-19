@@ -97,22 +97,30 @@ def test_predict():
         assert 3 > prediction[8] >= 0  # HOURLYPrecip
         assert 31 > prediction[9] > 28  # HOURLYAltimeterSetting
         assert abs(prediction[9] - prediction[7]) < 0.1  # HOURLYAltimeterSetting ~= HOURLYSeaLevelPressure
+<<<<<<< HEAD
         assert 1 >= prediction[10] >= -1 # HOURLYWindDirectionSin - should be -1 to 1
         assert 1 >= prediction[11] >= -1 # HOURLYWindDirectionCos - should be -1 to 1
         assert prediction[12] in [0,1] # HOURLYPressureTendencyIncr - should be 0 or 1
         assert prediction[13] in [0,1] # HOURLYPressureTendencyDecr - should be 0 or 1
         assert prediction[14] in [0,1] # HOURLYPressureTendencyCons - should be 0 or 1
+=======
+        assert 1 > prediction[10] > -1  # HOURLYWindDirectionSin - should be -1 to 1
+        assert 1 > prediction[11] > -1  # HOURLYWindDirectionCos - should be -1 to 1
+        assert prediction[12] in [0, 1]  # HOURLYPressureTendencyIncr - should be 0 or 1
+        assert prediction[13] in [0, 1]  # HOURLYPressureTendencyDecr - should be 0 or 1
+        assert prediction[14] in [0, 1]  # HOURLYPressureTendencyCons - should be 0 or 1
+>>>>>>> 9a2c6b2e9df5a6b9e40c04b986c03f6a7818bafc
 
     for prediction in ms_json['predictions']:
         # predicted HOURLYDRYBULBTEMPF for the next 48 hours
-        assert 106 > max(prediction) # hottest recorded in nyc
-        assert -15 < min(prediction) # coldest recorded in nyc
+        assert 106 > max(prediction)  # hottest recorded in nyc
+        assert -15 < min(prediction)  # coldest recorded in nyc
         assert len(prediction) == 48
 
     for prediction in uv_json['predictions']:
         # predicted HOURLYDRYBULBTEMPF for the next hour
-        assert 106 > max(prediction) # hottest recorded in nyc
-        assert -15 < min(prediction) # coldest recorded in nyc
+        assert 106 > max(prediction)  # hottest recorded in nyc
+        assert -15 < min(prediction)  # coldest recorded in nyc
 
 
 if __name__ == '__main__':
