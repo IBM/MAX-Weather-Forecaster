@@ -97,8 +97,8 @@ def test_predict():
         assert 3 > prediction[8] >= 0  # HOURLYPrecip
         assert 31 > prediction[9] > 28  # HOURLYAltimeterSetting
         assert abs(prediction[9] - prediction[7]) < 0.1  # HOURLYAltimeterSetting ~= HOURLYSeaLevelPressure
-        assert 1 > prediction[10] > -1 # HOURLYWindDirectionSin - should be -1 to 1
-        assert 1 > prediction[11] > -1 # HOURLYWindDirectionCos - should be -1 to 1
+        assert 1 >= prediction[10] >= -1 # HOURLYWindDirectionSin - should be -1 to 1
+        assert 1 >= prediction[11] >= -1 # HOURLYWindDirectionCos - should be -1 to 1
         assert prediction[12] in [0,1] # HOURLYPressureTendencyIncr - should be 0 or 1
         assert prediction[13] in [0,1] # HOURLYPressureTendencyDecr - should be 0 or 1
         assert prediction[14] in [0,1] # HOURLYPressureTendencyCons - should be 0 or 1
