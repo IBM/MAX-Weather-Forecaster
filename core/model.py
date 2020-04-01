@@ -49,11 +49,11 @@ class SingleModelWrapper(object):
     def _set_shape(self, model):
         # Reshape data according to which model is being used
         if model == 'univariate':
-            self.shape = (11452, 24, 12)
+            self.shape = (7509, 24, 15)
         elif model == 'multistep':
-            self.shape = (11445, 48, 12)
+            self.shape = (7502, 48, 15)
         elif model == 'multivariate':
-            self.shape = (11452, 24, 12)
+            self.shape = (7509, 24, 15)
         else:
             raise ValueError('Invalid model: {}'.format(self.model))
 
@@ -68,25 +68,25 @@ class SingleModelWrapper(object):
     def _rescale_preds(self, preds):
         # Apply inverse transform for relevant model
         if self.model_name == 'univariate':
-            pred_zeroes = np.zeros((len(preds), 12))
+            pred_zeroes = np.zeros((len(preds), 15))
             pred_zeroes[:, 1] = preds.reshape(-1)
             pred_zeroes = self.scaler.inverse_transform(pred_zeroes)
 
-            # returns 2d array where first axis has 11452 entries and second axis has 1 timestep
+            # returns 2d array where first axis has 7509 entries and second axis has 1 timestep
             rescaled_preds = pred_zeroes[:, 1].reshape(len(pred_zeroes), 1)
         elif self.model_name == 'multistep':
             preds_list = []
             for i in range(48):
-                pred_zeroes = np.zeros((len(preds), 12))
+                pred_zeroes = np.zeros((len(preds), 15))
                 pred_zeroes[:, 1] = preds[:, i].reshape(-1)
                 pred_zeroes = self.scaler.inverse_transform(pred_zeroes)
                 pred_timestep = pred_zeroes[:, 1]
                 preds_list.append(pred_timestep)
 
-                # returns 2d array where first axis has 11445 entries and second axis has 48 timesteps
+                # returns 2d array where first axis has 7502 entries and second axis has 48 timesteps
             rescaled_preds = np.stack(preds_list, axis=1)
         elif self.model_name == 'multivariate':
-            # returns 2d array where first axis has 11452 entries and second axis has 12 weather features
+            # returns 2d array where first axis has 7509 entries and second axis has 12 weather features
             rescaled_preds = self.scaler.inverse_transform(preds)
         else:
             raise ValueError('Invalid model: {}'.format(self.model))
@@ -124,12 +124,22 @@ class ModelWrapper(MAXModelWrapper):
         return self.models[model].predict(x)
 
     def _post_process(self, predictions):
-        if predictions.shape[1] == 12:  # multivariate model
+        if predictions.shape[1] == 15:  # multivariate model
             predictions = np.array(predictions)
-            predictions[:, 0] = np.clip(predictions[:, 0], 0, 10)  # HOURLYVISIBILITY - should be 0-10
+            predictions[:, 0] = np.clip(np.rint(predictions[:, 0]), 0, 10)  # HOURLYVISIBILITY - should be int 0-10
+            predictions[:, 1] = np.clip(predictions[:, 1], -15, 106)  # HOURLYDRYBULBTEMPF - between extremes recorded in nyc
+            predictions[:, 2] = np.clip(predictions[:, 2], -13, 104)  # HOURLYWETBULBTEMPF - between extremes recorded in nyc
+            predictions[:, 3] = np.clip(predictions[:, 3], -30, 95)  # HOURLYDewPointTempF - between extremes recorded in nyc
+            predictions[:, 4] = np.clip(predictions[:, 4], 0, 101)  # HOURLYRelativeHumidity - between extremes recorded in nyc
             predictions[:, 5] = np.maximum(predictions[:, 5], 0)  # HOURLYWindSpeed - should be non-negative
-            predictions[:, 6] = np.remainder(predictions[:, 6], 360)  # HOURLYWindDirection - should be 0-360
-            predictions[:, 8] = np.clip(np.round(predictions[:, 8]), 0, 8)  # HOURLYPressureTendency - TODO categorical
-            predictions[:, 10] = np.maximum(predictions[:, 10], 0)  # HOURLYPrecip - should be non-negative
+            predictions[:, 6] = np.clip(predictions[:, 6], 28, 31)  # HOURLYStationPressure
+            predictions[:, 7] = np.clip(predictions[:, 7], 28, 31)  # HOURLYSeaLevelPressure
+            predictions[:, 8] = np.maximum(predictions[:, 8], 0)  # HOURLYPrecip - should be non-negative
+            predictions[:, 9] = np.clip(predictions[:, 9], 28, 31)  # HOURLYAltimeterSetting
+            predictions[:, 10] = np.clip(predictions[:, 10], -1, 1)  # HOURLYWindDirectionSin - should be -1 to 1
+            predictions[:, 11] = np.clip(predictions[:, 11], -1, 1)  # HOURLYWindDirectionCos - should be -1 to 1
+            predictions[:, 12] = np.clip(np.rint(predictions[:, 12]), 0, 1)  # HOURLYPressureTendencyIncr - should be 0 or 1
+            predictions[:, 13] = np.clip(np.rint(predictions[:, 13]), 0, 1)  # HOURLYPressureTendencyDecr - should be 0 or 1
+            predictions[:, 14] = np.clip(np.rint(predictions[:, 14]), 0, 1)  # HOURLYPressureTendencyCons - should be 0 or 1
 
         return predictions
