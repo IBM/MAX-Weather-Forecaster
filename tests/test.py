@@ -86,11 +86,7 @@ def test_predict():
         assert 106 > prediction[1] > -15  # HOURLYDRYBULBTEMPF - should be between extremes recorded in nyc
         assert 104 > prediction[2] > -13  # HOURLYWETBULBTEMPF - should be between extremes recorded in nyc
         assert 95 > prediction[3] > -30  # HOURLYDewPointTempF - should be between extremes recorded in nyc
-
-        if prediction[4] < 100:  # when HOURLYRelativeHumidity is less than 100% (virtually always in real life)...
-            assert round(prediction[1]) >= round(prediction[2])  # ... then HOURLYDRYBULBTEMPF > HOURLYWETBULBTEMPF
-
-        assert 101 > prediction[4] >= 0  # HOURLYRelativeHumidity - apparently this CAN be > 100%
+        assert 102 > prediction[4] >= 0  # HOURLYRelativeHumidity - apparently this CAN be > 100%
         assert 80 > prediction[5] >= 0  # HOURLYWindSpeed - should be non-negative
         assert 31 > prediction[6] > 28  # HOURLYStationPressure
         assert 31 > prediction[7] > 28  # HOURLYSeaLevelPressure
