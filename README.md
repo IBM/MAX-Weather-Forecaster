@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster) [![Website Status](https://img.shields.io/website/http/max-weather-forecaster.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-weather-forecaster.max.us-south.containers.appdomain.cloud/)
+[![Build Status](https://travis-ci.org/IBM/MAX-Weather-Forecaster.svg?branch=master)](https://travis-ci.org/IBM/MAX-Weather-Forecaster) [![Website Status](https://img.shields.io/website/http/max-weather-forecaster.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-weather-forecaster.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud)
 
 [<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
@@ -161,19 +161,19 @@ $ tar -zxvf assets/lstm_weather_test_data.tar.gz -C assets
 ![Swagger Screenshot](/docs/swagger-screenshot.png "Swagger Screenshot")
 
 You can also test it on the command line, for example to test the univariate model:
-```
+```bash
 $ curl -F "file=@assets/lstm_weather_test_data/univariate_model_test_data.txt" -XPOST http://localhost:5000/model/predict
 ```
 
 You can select one of the three available models used to make predictions by setting the `model` request parameter to one of: `univariate` (default), `multivariate`, or `multistep`. _Note_ that each model takes in different weather datasets. After loading a particular model, you must predict only on the accompanying test dataset (e.g. `univariate` must predict on `univariate_model_test_data.txt`).
 
 For example, to test the multivariate model:
-```
+```bash
 $ curl -F "file=@assets/lstm_weather_test_data/multivariate_model_test_data.txt" -XPOST http://localhost:5000/model/predict?model=multivariate
 ```
 
 To test the multi-step model:
-```
+```bash
 $ curl -F "file=@assets/lstm_weather_test_data/multistep_model_test_data.txt" -XPOST http://localhost:5000/model/predict?model=multistep
 ```
 
