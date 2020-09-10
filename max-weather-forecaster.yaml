@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
       - name: max-weather-forecaster
-        image: codait/max-weather-forecaster:latest
+        image: quay.io/codait/max-weather-forecaster:latest
         ports:
         - containerPort: 5000
