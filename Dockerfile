@@ -14,13 +14,13 @@
 # limitations under the License.
 #
 
-FROM quay.io/codait/max-base:v1.3.2
-	
-COPY requirements.txt /workspace
+FROM quay.io/codait/max-base:v1.4.0
+
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
  
-COPY . /workspace
+COPY . .
     
 EXPOSE 5000
 
