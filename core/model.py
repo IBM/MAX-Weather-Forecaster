@@ -6,7 +6,7 @@ from config import DEFAULT_MODEL_PATH, MODELS, MODEL_META_DATA as model_meta
 import os
 from keras.models import load_model
 import numpy as np
-from sklearn.externals import joblib
+import joblib
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -24,7 +24,7 @@ class SingleModelWrapper(object):
         # load model
         model_path = '{}/{}_model'.format(path, model)
         logger.info(model_path)
-        self.graph = tf.get_default_graph()
+        self.graph = tf.compat.v1.get_default_graph()
         self.model = load_model(model_path)
 
         # load scaler
@@ -96,6 +96,6 @@ class ModelWrapper(MAXModelWrapper):
 
         logger.info('Loaded all models')
 
-    def predict(self, x, model):
+    def _predict(self, x, model):
         logger.info('Predicting from model: {}'.format(model))
         return self.models[model].predict(x)

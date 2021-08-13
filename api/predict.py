@@ -2,7 +2,7 @@ from core.model import ModelWrapper, load_array
 
 from maxfw.core import MAX_API, PredictAPI
 
-from flask_restplus import Namespace, Resource, fields
+from flask_restx import Namespace, Resource, fields
 from werkzeug.datastructures import FileStorage
 from config import MODEL_META_DATA, DEFAULT_MODEL, MODELS
 
