@@ -1,5 +1,4 @@
-numpy==1.16.2
-tensorflow==1.15.2
-keras==2.2.4
-scikit-learn==0.22.1
-h5py==2.9.0
+tensorflow==2.6.0
+keras==2.6.0
+scikit-learn==0.22.2
+# numpy and h5py not specified here because tensorflow has specifies a major.minor version range for them
