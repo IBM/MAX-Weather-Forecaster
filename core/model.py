@@ -20,7 +20,7 @@ import logging
 from config import DEFAULT_MODEL_PATH, MODELS, MODEL_META_DATA as model_meta
 from keras.models import load_model
 import numpy as np
-from sklearn.externals import joblib
+import joblib
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -34,12 +34,19 @@ def load_array(input_data):
 class SingleModelWrapper(object):
 
     def __init__(self, model, path):
+        # The code was originally written for TF1 and doesn't work with eager mode.
+        tf.compat.v1.disable_eager_execution()
+        self.session = tf.compat.v1.Session()
+
         self.model_name = model
 
         # load model
         model_path = '{}/{}_model'.format(path, model)
         logger.info(model_path)
-        self.graph = tf.get_default_graph()
+        self.graph = tf.compat.v1.get_default_graph()
+        # See https://github.com/tensorflow/tensorflow/issues/28287#issuecomment-495005162
+        # We have to do this because we load 3 models in the process.
+        tf.compat.v1.keras.backend.set_session(self.session)
         self.model = load_model(model_path)
 
         # load scaler
@@ -96,6 +103,7 @@ class SingleModelWrapper(object):
     def predict(self, x):
         reshaped_x = self._reshape_data(x)
         with self.graph.as_default():
+            tf.compat.v1.keras.backend.set_session(self.session)
             preds = self.model.predict(reshaped_x)
         rescaled_preds = self._rescale_preds(preds)
         return rescaled_preds
