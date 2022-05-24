@@ -1,4 +1,4 @@
-tensorflow==2.6.0
+tensorflow==2.6.4
 keras==2.6.0
 scikit-learn==0.22.2
 # numpy and h5py not specified here because tensorflow has specifies a major.minor version range for them
